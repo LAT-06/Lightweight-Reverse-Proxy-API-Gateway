@@ -322,9 +322,9 @@
 ## Complete Checklist for MVP
 
 ### Development Environment
-- [ ] Linux machine with .NET 8 SDK
-- [ ] Docker and Docker Compose installed
-- [ ] Code editor set up
+- [x] Linux machine with .NET 8 SDK
+- [x] Docker and Docker Compose installed
+- [x] Code editor set up
 
 ### Core Components
 - [ ] YARP reverse proxy project created

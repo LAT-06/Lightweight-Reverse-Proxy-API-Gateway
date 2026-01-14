@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pwKsmmo3N2A=",
+  "success": true,
+  "projectFilePath": "/home/lat/Documents/self study/project/Lightweight-Reverse-Proxy-API-Gateway/ReverseProxy/ReverseProxy.csproj",
+  "expectedPackageFiles": [
+    "/home/lat/.nuget/packages/system.io.hashing/8.0.0/system.io.hashing.8.0.0.nupkg.sha512",
+    "/home/lat/.nuget/packages/yarp.reverseproxy/2.3.0/yarp.reverseproxy.2.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
