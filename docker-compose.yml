@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  reverse-proxy:
+    build:
+      context: ./ReverseProxy
+      dockerfile: Dockerfile
+    container_name: reverse-proxy
+    ports:
+      - "8000:80"
+    networks:
+      - backend-network
+    depends_on:
+      - backend-nodejs-1
+      - backend-nodejs-2
+      - backend-python-1
+      - backend-dotnet-1
+    restart: unless-stopped
+
+  backend-nodejs-1:
+    build:
+      context: ./BackendServices/nodejs-api
+      dockerfile: Dockerfile
+    container_name: backend-nodejs-1
+    environment:
+      - PORT=3000
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend-nodejs-2:
+    build:
+      context: ./BackendServices/nodejs-api
+      dockerfile: Dockerfile
+    container_name: backend-nodejs-2
+    environment:
+      - PORT=3000
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend-python-1:
+    build:
+      context: ./BackendServices/python-api
+      dockerfile: Dockerfile
+    container_name: backend-python-1
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend-dotnet-1:
+    build:
+      context: ./BackendServices/dotnet-api
+      dockerfile: Dockerfile
+    container_name: backend-dotnet-1
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  backend-network:
+    driver: bridge

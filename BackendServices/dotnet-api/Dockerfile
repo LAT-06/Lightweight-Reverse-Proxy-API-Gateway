@@ -11,7 +11,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine
 WORKDIR /app
 COPY --from=build /app/publish .
 
-EXPOSE 80
-ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
-ENTRYPOINT ["dotnet", "ReverseProxy.dll"]
+ENTRYPOINT ["dotnet","dotnet-api.dll"]
